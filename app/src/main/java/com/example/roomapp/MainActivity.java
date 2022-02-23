@@ -10,15 +10,18 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executor;
 
 public class MainActivity extends AppCompatActivity {
     String TAG = MainActivity.class.getSimpleName();
@@ -63,15 +66,34 @@ public class MainActivity extends AppCompatActivity {
             case R.id.commitFBbttn:
                 firecommit();
                 break;
+            case R.id.retriveFBbttn:
+                fire_retrieve();
+                break;
         }
+    }
+
+    private void fire_retrieve() {
+        db.collection("users")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d(TAG, document.getId() + " => " + document.getData());
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }    }
+                });
     }
 
     private void firecommit() {
         // Create a new user with a first and last name
         Map<String, Object> user = new HashMap<>();
-        user.put("first", "Ada");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
+        user.put("Title", etTitle.getText().toString());
+        user.put("Author",  etAuthor.getText().toString());
+        user.put("Note",  etNotes.getText().toString());
 
 // Add a new document with a generated ID
         db.collection("users")
@@ -80,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        etTitle.setText("");
+                        etNotes.setText("");
+                        etAuthor.setText("");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
