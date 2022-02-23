@@ -6,11 +6,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.List;
+import java.util.concurrent.Executor;
 
 public class MainActivity extends AppCompatActivity {
     TodoRoomDb todoRoomDb;
     TodoDao todoDao;
     EditText etTitle,etNotes,etAuthor;
+    TextView dbresults;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +45,17 @@ public class MainActivity extends AppCompatActivity {
                 etAuthor.setText("");
                 break;
             case R.id.retreviebttn:
+                searchTodo(etTitle.getText().toString());
                 break;
         }
     }
+
+    private void searchTodo(String SearchString) {
+        dbresults= findViewById(R.id.results);
+      new  searchTask(SearchString,dbresults).execute();
+    }
+
+
 
     public void insertAsync(String title, String notes,String author) {
 
@@ -64,4 +77,29 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
-}
+
+     class searchTask extends AsyncTask<Void,Void, List<Todo>>{
+
+        String mString;
+        TextView mTextView;
+
+        public searchTask(String searchString, TextView dbresults) {
+
+
+            mString=searchString;
+            mTextView=dbresults;
+        }
+
+        @Override
+        protected List<Todo> doInBackground(Void...Void) {
+            return todoDao.findWord(mString);
+
+        }
+
+         @Override
+         protected void onPostExecute(List<Todo> todos) {
+             super.onPostExecute(todos);
+             mTextView.setText(todos.get(0).title + "\n"+ todos.get(0).notes+ "\n"+todos.get(0).author);
+         }
+     }
+    }
