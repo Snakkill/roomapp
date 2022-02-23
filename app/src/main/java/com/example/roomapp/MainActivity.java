@@ -10,7 +10,7 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
     TodoRoomDb todoRoomDb;
     TodoDao todoDao;
-    EditText etTitle,etNotes;
+    EditText etTitle,etNotes,etAuthor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
         etTitle = findViewById(R.id.Input_title);
         etNotes = findViewById(R.id.Input_Note);
+        etAuthor = findViewById(R.id.Input_author);
+
     }
 
     public void DbHandler(View view) {
@@ -31,31 +33,34 @@ public class MainActivity extends AppCompatActivity {
             case R.id.commitbttn:
                 String title = etTitle.getText().toString();
                 String notes = etNotes.getText().toString();
-                insertAsync(title,notes);
+                String author = etAuthor.getText().toString();
+                insertAsync(title,notes,author);
                 etTitle.setText("");
                 etNotes.setText("");
+                etAuthor.setText("");
                 break;
             case R.id.retreviebttn:
                 break;
         }
     }
 
-    public void insertAsync(String title, String notes) {
+    public void insertAsync(String title, String notes,String author) {
 
-        new InsertTask(title,notes).execute();
+        new InsertTask(title,notes,author).execute();
     }
 
     class InsertTask extends AsyncTask<Void,Void,Void> {
-        String mTitle, mNotes;
+        String mTitle, mNotes,mAuthor;
 
-        public InsertTask(String title, String notes) {
+        public InsertTask(String title, String notes,String author) {
             mTitle=title;
             mNotes=notes;
+            mAuthor=author;
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            todoDao.insert(new Todo( mTitle,mNotes));
+            todoDao.insert(new Todo( mTitle,mNotes,mAuthor));
             return null;
         }
     }

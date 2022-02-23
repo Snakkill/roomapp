@@ -10,54 +10,68 @@
         android:id="@+id/Input_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="52dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Title"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/Input_Note"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/Input_Note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="157dp"
+        android:layout_marginTop="37dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Note"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.412"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/Input_title" />
 
     <Button
         android:id="@+id/commitbttn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:text="Commit"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="61dp"
         android:onClick="DbHandler"
-        app:layout_constraintBaseline_toBaselineOf="@+id/retreviebttn"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:text="Commit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Input_author" />
 
     <Button
         android:id="@+id/retreviebttn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="79dp"
-        android:text="retrive"
+        android:layout_marginTop="54dp"
+        android:layout_marginEnd="87dp"
         android:onClick="DbHandler"
+        android:text="retrive"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Input_Note" />
+        app:layout_constraintTop_toBottomOf="@+id/Input_author" />
 
     <TextView
         android:id="@+id/results"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="91dp"
+        android:layout_marginTop="69dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/commitbttn"
         app:layout_constraintTop_toBottomOf="@+id/commitbttn" />
+
+    <EditText
+        android:id="@+id/Input_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Author"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.412"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Input_Note" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

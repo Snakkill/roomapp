@@ -12,11 +12,13 @@ public class Todo {
 
     public String title;
     public String notes;
+    public String author;
 
     public Todo(){}
 
-    public Todo(String mTitle, String mNotes) {
+    public Todo(String mTitle, String mNotes,String mAuthor) {
         this.title = mTitle;
         this.notes = mNotes;
+        this.author=mAuthor;
     }
 }
