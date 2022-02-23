@@ -74,4 +74,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Input_Note" />
 
+    <Button
+        android:id="@+id/commitFBbttn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="129dp"
+        android:text="commitFB"
+        android:onClick="DbHandler"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/results"
+        app:layout_constraintEnd_toStartOf="@+id/retriveFBbttn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/retriveFBbttn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="retriveFBbttn"
+        android:onClick="DbHandler"
+        app:layout_constraintBaseline_toBaselineOf="@+id/commitFBbttn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/commitFBbttn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
